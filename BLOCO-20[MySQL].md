@@ -222,7 +222,74 @@ SELECT MINUTE(payment_date) FROM sakila.payment; -- Minuto
 SELECT SECOND(payment_date) FROM sakila.payment; -- Segundo 
 ~~~
 
+### INSERT
+*Serve para inserir dados em uma tabela*
 
+> Insere dados na coluna1 e coluna 2
+~~~javascript
+ INSERT INTO nome_da_tabela (coluna1, coluna2)
+ VALUES ('valor_coluna1','valor_coluna2') ; 
+~~~
+
+> Insere multiplos dados na coluna 1 e coluna 2
+~~~javascript
+INSERT INTO nome_da_tabela (coluna1, coluna2)
+VALUES
+('valor_coluna1','valor_coluna2'),
+('valor_coluna1','valor_coluna2'),
+('valor_coluna1','valor_coluna2'),
+('valor_coluna1','valor_coluna2'),
+('valor_coluna1','valor_coluna2') ;
+~~~
+
+> Insere dados em uma tabela já existente
+
+*Em casos que a tabela já possui AUTO_INCREMENT no id, não precisa colocar o id*
+~~~javascript
+INSERT INTO sakila.actos (first_name, last_name)
+VALUES ('MARCELO','SANTOS') ;
+~~~
+
+### UPDATE
+*Serve para atualizar valores existentem em uma tabela*
+
+> A funçao UPDATE funciona de forma geral conforme o código abaixo
+~~~javascript
+UPDATE nome_da_tabela
+SET propriedade_a_ser_alterada = 'novo valor para coluna'
+WHERE alguma_condicao; -- importantíssimo aplicar o WHERE para não alterar a tabela inteira!
+~~~
+
+> Atualiza o first_name onde o first_name é Raiven
+~~~javascript
+ UPDATE sakila.staff
+ SET first_name = 'Rannveing'
+ WHERE fisrt_name = 'Ravein' ; 
+~~~
+
+> Atualiza o first_name e last_name onde o staff_id é igual a 4
+~~~javascript
+UPDATE sakila.staff
+SET first_name = 'Rannveig', last_name = 'Jordan'
+WHERE staff_id = 4 ;
+~~~
+
+> Fazendo atualizações em condições globais.
+~~~javascript
+-- Opção 1 - Incluindo a lista de condições fixas
+UPDATE sakila.actor
+SET first_name = 'JOE'
+WHERE actor_id IN (1,2,3);
+
+-- Opção 2 - Especificando como cada entrada será alterada individualmente
+UPDATE sakila.actor
+SET first_name = (
+CASE actor_id WHEN 1 THEN 'JOE' -- se actor_id = 1, alterar first_name para 'JOE'
+              WHEN 2 THEN 'DAVIS' -- se actor_id = 2, alterar first_name para 'DAVIS'
+              WHEN 3 THEN 'CAROLINE' -- se actor_id = 3, alterar first_name para 'CAROLINE'
+	      ELSE first_name -- em todos os outros casos, mantém-se o first_name
+END);
+~~~
 
 
 ### Criando uma TABELA:
