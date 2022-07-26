@@ -85,6 +85,146 @@ que o valor seja a chave primária da tabela, ou seja, que a coluna que possui e
 ### DISTINCT 
 *Serve para eliminar valores repetidos*
 
+### INSERT
+*Serve para inserir dados em uma tabela vazia*
+
+
+### COUNT 
+*Serve para contar a quantidade de casos em uma tabela*
+
+>Conta todos os dados dentro do sakila.actor.
+~~~javascript
+SELECT COUNT (*) FROM sakila.actor ;
+~~~
+
+>Conta todos os dados da coluna first_name dentro da tabela sakila.andress
+~~~javascript
+SELECT COUNT(first_name) FROM sakila.actor ;
+~~~
+
+### LIMIT
+*Serve para LIMITAR a quantidade de dados que é mostrado na visualização*
+
+>Mostra os 10 primeiros dados da tabela sakila.rental
+~~~javascript
+SELECT * FROM sakila.rental LIMIT 10 ;
+~~~
+
+### LIMIT OFFSET
+*Serve para limitar os dados em um intervalo*
+
+> Mostra os 10 primeiros dados da tabela sakila.rental a partir da linha 4
+~~~javascript
+ SELECT * FROM sakila.rental LIMIT 10 OFFSET 3 ;
+~~~
+
+### ORDER BY
+*Serve para ordenar o código de forma alfabética ou numerica, podendo ser de forma decrescente(DESC) ou crescente(ASC)*
+
+> Mostra os dados da tabela sakila.address por ordenação ASC em district e DESC em address
+~~~javascript
+ SELECT * FROM sakila.address
+ ORDER BY district ASC, address DESC; 
+~~~
+
+### WHERE
+*Serve para filtrar a tabela de uma forma especifica*
+
+> Seleciona os dados que tem os parâmetros que foram setados da tabela sakila.payment.
+
+*Como o operador AND tem preferência sobre o operador OR,ele é avaliado primeiro*
+~~~javascript
+ SELECT * FROM sakila.payment
+ WHERE amount = 0.99 OR amount = 2.99 AND staff_id = 2;
+~~~
+
+> Seleciona os dados que tem os parâmetros que foram setados da tabela sakila.payment.
+
+*Primeiramente, a expressão dentro dos parênteses é avaliada, e todos os resultados que satisfazem a condição são retornados, na sequência, a expressão ao lado direito é avaliada.*
+~~~javascript
+SELECT * FROM sakila.payment
+WHERE (amount = 0.99 OR amount = 2.99) AND staff_id = 2 ;
+~~~
+
+### LIKE
+*Serve para selecionar os dados que conténham uma condição absoluta*
+
+> Seleciona todos os dados da tabela sakila.film que terminam com don
+~~~javascript
+ SELECT * FROM sakila.film
+ WHERE title LIKE '%don' ; 
+~~~
+
+* % - O sinal de percentual, que pode representar zero, um ou múltiplos caracteres
+* _ - O underscore (às vezes chamado de underline, no Brasil), que representa um único caractere
+
+> Seleciona todos os dados da tabela sakila.film que começam com plu
+~~~javascript
+SELECT * FROM sakila.film
+WHERE title LIKE 'plu%' ;
+~~~
+
+> Seleciona qualquer resultado que inicia com p e finaliza com r
+~~~javascript
+SELECT * FROM sakila.film
+WHERE title LIKE 'p%r' ;
+~~~
+
+> Seleciona qualquer resultado que o segundo caractere da frase é 'C'.
+~~~javascript
+SELECT * FROM sakila.film
+WHERE title LIKE '_C%' ;
+~~~
+
+> Seleciona qualquer resultado que tenha 3 letras
+~~~javascript
+SELECT * FROM sakila.film
+WHERE title LIKE '___'  ;
+~~~
+
+> Seleciona qualquer resultado que inicia com E e tenha no minino 3 caracteres.
+~~~javascript
+SELECT * FROM sakila.film
+WHERE title LIKE 'E__%' ;
+~~~ 
+
+### IN
+*Serve para substituir as condicionais AND ou OR*
+
+> Seleciona todos os dados que satisfazem a condição IN 
+~~~javascript
+ SELECT * FROM sakila.actor
+ WHERE first_name IN ('PENELOPE', 'NICK', 'ED','JENNIFER') ;
+~~~
+
+### BETWEEN
+*Serve para selecionar dados em um intervalo especifico*
+
+> Seleciona todos os dados que estão entre Italian e Mandarin
+~~~javascript
+ SELECT * FROM sakila.language
+ WHERE name BETWEEN 'Italian' AND 'Mandarin'
+ ORDER BY name ; 
+~~~
+
+### TRABALHANDO COM DATAS
+*Códigos para trabalhar com seleção de datas no MySQL*
+
+> Códigos
+~~~javascript
+ -- Teste cada um dos comandos a seguir:
+SELECT DATE(payment_date) FROM sakila.payment; -- YYYY-MM-DD
+SELECT YEAR(payment_date) FROM sakila.payment; -- Ano
+SELECT MONTH(payment_date) FROM sakila.payment; -- Mês
+SELECT DAY(payment_date) FROM sakila.payment; -- Dia
+SELECT HOUR(payment_date) FROM sakila.payment; -- Hora
+SELECT MINUTE(payment_date) FROM sakila.payment; -- Minuto
+SELECT SECOND(payment_date) FROM sakila.payment; -- Segundo 
+~~~
+
+
+
+
 ### Criando uma TABELA:
     CREATE TABLE filme(  
         filme_id int NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
