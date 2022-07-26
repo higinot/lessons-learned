@@ -291,6 +291,19 @@ CASE actor_id WHEN 1 THEN 'JOE' -- se actor_id = 1, alterar first_name para 'JOE
 END);
 ~~~
 
+### CONCEITO CRUD
+*Conceito de MySQL*
+
+> O Conceito de CRUD é uma apreviação de:
+~~~javascript
+ /* 
+    C - CREATE = INSERT
+    R - READ   = SELECT
+    U - UPDATE = UPDATE
+    D - DELETE = DELETE
+ */ 
+~~~
+
 
 ### Criando uma TABELA:
     CREATE TABLE filme(  
