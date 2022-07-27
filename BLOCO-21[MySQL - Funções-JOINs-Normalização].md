@@ -215,3 +215,103 @@ FROM sakila.actor
 GROUP BY first_name
 HAVING 'nomes cadastrados' > 2;
 ~~~
+
+## JOIN
+
+*A ideia do JOIN é permitir combinar registros de duas ou mais tabelas, através do relacionamento que uma tabela tem com a outra.*
+
+*Essa funcionalidade pode ser usadas para diferentes propósitos no seu dia a dia de trabalho, como a criação de relatórios, de novas maneiras de exibir uma informação já cadastrada em uma tabela e adicionar detalhes a tabelas existentes, entre outras possibilidades.*
+
+> A sintaxe para o INNER JOIN é a seguinte
+~~~javascript
+SELECT t1.coluna, t2.coluna
+FROM tabela1 AS t1
+INNER JOIN tabela2 AS t2
+ON t1.coluna_em_comum = t2.coluna_em_comum;
+~~~
+
+### LEFT JOIN & RIGHT JOIN
+*Você precisa encontrar um conjunto de registros, mas não tem certeza se uma das colunas de referência envolvidas possui ou não essa informação*
+
+> LEFT JOIN - *quando utilizamos o LEFT JOIN, focamos a tabela da esquerda. São retornados todos os registros da tabela da esquerda e valores correspondentes da tabela da direita, caso existam. Valores que não possuem correspondentes são exibidos como nulos.*
+~~~javascript
+ SELECT
+    c.customer_id,
+    c.first_name,
+    c.last_name,
+    a.actor_id,
+    a.first_name,
+    a.last_name
+FROM sakila.customer AS c
+LEFT JOIN sakila.actor AS a
+ON c.last_name = a.last_name
+ORDER BY c.last_name; 
+~~~
+![LEFT JOIN](https://assets.app.betrybe.com/back-end/sql/images/leftjoin-3bd116be2c7d08ac759c74353260cfea.png)
+> RIGHT JOIN - *uando utilizamos o RIGHT JOIN, focamos a tabela da direita. São retornados todos os registros da tabela da direita e valores correspondentes da tabela da esquerda, caso existam. Valores que não possuem correspondentes são exibidos como nulos.*
+~~~javascript
+SELECT
+    c.customer_id,
+    c.first_name,
+    c.last_name,
+    a.actor_id,
+    a.first_name,
+    a.last_name
+FROM sakila.customer AS c
+RIGHT JOIN sakila.actor AS a
+ON c.last_name = a.last_name
+ORDER BY c.last_name;
+~~~
+![RIGHT JOIN](https://assets.app.betrybe.com/back-end/sql/images/rightjoin-f8109b9bb4ea1ed927109d1e19a1a262.png)
+
+
+> INNER JOIN - *finalmente, temos o INNER JOIN, que foca em trazer somente os registros que possuem valores correspondentes em ambas as tabelas.*
+~~~javascript
+SELECT
+    c.customer_id,
+    c.first_name,
+    c.last_name,
+    a.actor_id,
+    a.first_name,
+    a.last_name
+FROM sakila.customer AS c
+INNER JOIN sakila.actor AS a
+ON c.last_name = a.last_name
+ORDER BY c.last_name;
+~~~
+![INNER JOIN](https://assets.app.betrybe.com/back-end/sql/images/innerjoin-dcdd0d7b81d1843386871875fc408dd4.png)
+
+## Database Design
+
+1. Identificar as entidades, atributos e relacionamentos com base na descrição do problema: Por exemplo, a entidade álbum possui os atributos título e preço e se relaciona com a entidade artista.
+
+2. Construir um diagrama entidade-relacionamento para representar as entidades encontradas no passo 1: O diagrama serve como um guia para que você possa visualizar as entidades (tabelas) que irão se relacionar.
+
+3. Criar um banco de dados para conter suas tabela: Após analisar e criar um diagrama de como o seu banco de dados vai ser estruturado, você pode dar início a criação dele.
+
+4. Criar e relacionar tabelas tendo o diagrama do passo 2 como base: Após criar seu banco de dados, você pode começar a criar e relacionar as tabelas de acordo com o diagrama.
+
+#### 1. Identificando entidades, atributos e relacionamentos
+
+**Entidades**: São uma representação de algo do mundo real dentro do banco de dados e que normalmente englobalm toda uma ideia. São armazenados em formato de tabelas em um banco de dados.
+
+*  `Entidade 1: Album`
+*  `Entidade 2: Artista`
+*  `Entidade 3: Estilo Musical`
+*  `Entidade 4: Canção`
+
+**Atributos**: *Um atributo é tudo aquilo que podes ser usado para descrever algo. Por exemplo, uma entidade pessoa pode ter nome, altura,peso e idade como atributos*
+
+*  `Album: album_id, titulo, preco, estilo_id, artista_id`
+*  `Artista: artista_id e nome `
+*  `Estilo: estilo_id e nome`
+*  `Cancao: cancao_id, nome e album_id`
+
+**Relacionamentos**: *Os relacionamentos servem para representar como uma entidade deve estar ligada com outros(s) no banco de dados. Há três tipos de relacionamentos possíveis em um banco de dados, são eles:*
+
+*  `Relacionamento Um para Um: (1..1)`
+>Nesse tipo de relacionamento, uma lista da Tabela A deve possuir apenas uma linha correspondente da Tabela B e vice-virssa.
+
+![1:1](https://assets.app.betrybe.com/back-end/sql/images/relacionamentos1.2-7e92dc1947281a68817caf5a53c014a5.png)
+
+
